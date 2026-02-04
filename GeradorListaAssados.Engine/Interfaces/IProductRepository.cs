@@ -1,13 +1,13 @@
 ﻿using GeradorListaAssados.Engine.Models;
+using System.Linq.Expressions;
 
 namespace GeradorListaAssados.Engine.Interfaces;
 
 public interface IProductRepository
 {
-    Task<Product?> GetOneAsync(Guid id, CancellationToken cancellationToken);
+    Task<Product?> GetOneAsync(Expression<Func<Product, bool>> expression, CancellationToken cancellationToken);
     Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken);
-    Task<Product?> GetByNameAsync(string name, CancellationToken cancellationToken);
-    void Add(Product product);
+    void Insert(Product product);
     void Update(Product product);
     void Delete(Product product);
 }

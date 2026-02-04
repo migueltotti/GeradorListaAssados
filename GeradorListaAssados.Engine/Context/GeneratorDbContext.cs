@@ -6,6 +6,8 @@ namespace GeradorListaAssados.Engine.Context
     public class GeneratorDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
+        public GeneratorDbContext(DbContextOptions<GeneratorDbContext> options)
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

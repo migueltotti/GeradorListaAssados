@@ -2,10 +2,11 @@
 using GeradorListaAssados.Engine.Interfaces;
 using GeradorListaAssados.Engine.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace GeradorListaAssados.Engine.Repositories
 {
-    internal class ProductRepository(GeneratorDbContext context) : IProductRepository
+    public class ProductRepository(GeneratorDbContext context) : IProductRepository
     {
         public async Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken)
         {
@@ -14,21 +15,14 @@ namespace GeradorListaAssados.Engine.Repositories
                 .ToListAsync(cancellationToken);
         }
 
-        public Task<Product?> GetOneAsync(Guid id, CancellationToken cancellationToken)
+        public Task<Product?> GetOneAsync(Expression<Func<Product, bool>> expression, CancellationToken cancellationToken)
         {
             return context.Products
                 .AsNoTracking()
-                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(expression, cancellationToken);
         }
 
-        public Task<Product?> GetByNameAsync(string name, CancellationToken cancellationToken)
-        {
-            return context.Products
-                .AsNoTracking()
-                .FirstOrDefaultAsync(p => p.Name.Contains(name), cancellationToken);
-        }
-
-        public void Add(Product product)
+        public void Insert(Product product)
         {
             context.Products.Add(product);
             context.SaveChanges();

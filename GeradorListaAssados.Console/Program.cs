@@ -2,7 +2,13 @@
 using GeradorListaAssados.Console;
 using GeradorListaAssados.Engine.Extentions;
 
-var filePath = Path.Combine(Path.GetTempPath(), $"lista-{Guid.NewGuid()}.xlsx");
+var fileName = $"lista-{Guid.NewGuid()}.xlsx";
+
+string downloadsPath = Path.Combine(
+    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+    "Downloads",
+    fileName
+);
 
 var workbook = new XLWorkbook();
 
@@ -16,7 +22,7 @@ workbook
     .AddHeader()
     .AddProducts(assadosList);
 
-workbook.SaveAs(filePath);
+workbook.SaveAs(downloadsPath);
 
-Console.WriteLine(filePath);
+Console.WriteLine(downloadsPath);
 

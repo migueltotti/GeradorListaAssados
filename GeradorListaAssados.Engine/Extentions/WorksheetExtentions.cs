@@ -39,12 +39,13 @@ public static class WorksheetExtentions
 
         // Adiciona titulo juntando todas as colunas da segunda linha
         worksheet.Range("B2:F2").Merge();
+        worksheet.Row(2).Height = 36.8;
         worksheet.Cell("B2").Style.Font.Bold = true;
         worksheet.Cell("B2").Value = WorksheetConstants.HeaderTitleText;
         worksheet.Cell("B2").Style.Font.FontName = WorksheetConstants.FontName;
         worksheet.Cell("B2").Style.Font.FontSize = 24;
         worksheet.Cell("B2").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-        worksheet.Cell("B2").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+        worksheet.Cell("B2").Style.Alignment.Vertical = XLAlignmentVerticalValues.Bottom;
 
         return worksheet;
     }
@@ -87,6 +88,7 @@ public static class WorksheetExtentions
                 worksheet.Cell(row, column).Style.Font.FontSize = 16;
                 worksheet.Cell(row, column).Style.Font.FontName = WorksheetConstants.FontName;
                 worksheet.Cell(row, column).Style.Font.FontColor = WorksheetConstants.CellNumber;
+                worksheet.Cell(row, column).Style.Font.Bold = true;
                 worksheet.Cell(row, column).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
                 worksheet.Cell(row, column).Style.Alignment.Vertical = XLAlignmentVerticalValues.Top;
                 worksheet.Cell(row, column).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
