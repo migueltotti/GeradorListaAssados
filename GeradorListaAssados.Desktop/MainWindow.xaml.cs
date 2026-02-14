@@ -1,6 +1,9 @@
-﻿using GeradorListaAssados.Desktop.ViewModels;
+﻿using GeradorListaAssados.Desktop.Navegation;
+using GeradorListaAssados.Desktop.ViewModels;
+using GeradorListaAssados.Desktop.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace GeradorListaAssados.Desktop;
 
@@ -10,32 +13,18 @@ namespace GeradorListaAssados.Desktop;
 public partial class MainWindow : Window
 {
     private readonly MainViewModel _viewModel;
+    private readonly INavegationService _navegationService;
 
-    public MainWindow(MainViewModel viewModel)
+    public MainWindow(MainViewModel viewModel, INavegationService navegationService)
     {
         InitializeComponent();
 
         _viewModel = viewModel;
+        _navegationService = navegationService;
         DataContext = _viewModel;
 
         SetDateLabel();
     }
-
-    //private async Task AddProduct(Product product)
-    //{
-    //    var result = await _productService.AddAsync(product, CancellationToken.None);
-
-    //    if (result.IsFailure)
-    //    {
-    //        MessageBox.Show(
-    //            result.Error.Description, 
-    //            "Erro ao adicionar produto.", 
-    //            MessageBoxButton.OK);
-    //    }
-
-    //    await LoadProducts();
-    //}
-
 
     private void SetDateLabel()
     {
@@ -61,9 +50,9 @@ public partial class MainWindow : Window
         }
     }
 
-    private void Button_Click(object sender, RoutedEventArgs e)
+    private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
     {
-        // Abrir janela de adicionar produto
+        _navegationService.OpenWindow<AddProductWindow>();
     }
 
     private void btnGenerateFile_Click(object sender, RoutedEventArgs e)

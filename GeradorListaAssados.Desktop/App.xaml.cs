@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using GeradorListaAssados.Desktop.Navegation;
 using GeradorListaAssados.Desktop.ViewModels;
+using GeradorListaAssados.Desktop.Windows;
 using GeradorListaAssados.Engine.Context;
 using GeradorListaAssados.Engine.Interfaces;
 using GeradorListaAssados.Engine.Repositories;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Windows;
+using Application = System.Windows.Application;
 
 namespace GeradorListaAssados.Desktop
 {
@@ -74,6 +77,7 @@ namespace GeradorListaAssados.Desktop
 
         private static void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<INavegationService, NavegationService>();
             services.AddScoped<IProductService, ProductService>();
 
             services.AddValidatorsFromAssemblyContaining<ProductValidator>();
@@ -82,11 +86,13 @@ namespace GeradorListaAssados.Desktop
         private static void RegisterViewModels(IServiceCollection services)
         {
             services.AddScoped<MainViewModel>();
+            services.AddScoped<AddProductViewModel>();
         }
 
         private static void RegisterWindows(IServiceCollection services)
         {
             services.AddSingleton<MainWindow>();
+            services.AddSingleton<AddProductWindow>();
         }
 
         private static void ApplyDatabaseMigrations(IHost host)

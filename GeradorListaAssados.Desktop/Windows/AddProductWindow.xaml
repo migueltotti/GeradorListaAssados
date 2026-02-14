@@ -1,0 +1,31 @@
+﻿<Window x:Class="GeradorListaAssados.Desktop.Windows.AddProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GeradorListaAssados.Desktop.Windows"
+        mc:Ignorable="d"
+        Title="Adicionar Produto" Height="512" Width="409"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,0,-6" Height="512" Width="409">
+        <TextBox x:Name="tbName" Margin="46,94,45,0" TextWrapping="Wrap" Text="&#xD;&#xA;" VerticalAlignment="Top" Height="30" MaxLines="1" FontSize="20"/>
+        <Label Content="Nome:" HorizontalAlignment="Center" Margin="0,63,0,0" VerticalAlignment="Top" FontSize="16" Width="318"/>
+        <TextBox x:Name="tbPrice" Margin="46,160,45,0" TextWrapping="Wrap" Text="&#xA;" VerticalAlignment="Top" Height="30" MaxLines="1" FontSize="20"/>
+        <Label Content="Preço:" HorizontalAlignment="Center" Margin="0,129,0,0" VerticalAlignment="Top" FontSize="16" Width="318"/>
+        <TextBox x:Name="tbQuantity" Margin="46,226,45,0" TextWrapping="Wrap" Text="&#xA;" VerticalAlignment="Top" Height="30" MaxLines="1" FontSize="20"/>
+        <Label Content="Quantidade:" HorizontalAlignment="Center" Margin="0,193,0,0" FontSize="16" Width="318" Height="31" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbIndex" Margin="46,292,45,0" TextWrapping="Wrap" Text="&#xA;" VerticalAlignment="Top" Height="30" MaxLines="1" FontSize="20"/>
+        <Label Content="Índice:" HorizontalAlignment="Center" Margin="0,261,0,0" VerticalAlignment="Top" FontSize="16" Width="318"/>
+        <Label Content="Cor:" HorizontalAlignment="Center" Margin="0,327,0,0" VerticalAlignment="Top" FontSize="16" Width="318"/>
+        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="46,411,0,62" Width="145" Height="30" FontSize="14" Background="#FFFF2C2C" Foreground="Black" FontWeight="Bold" Click="Button_Click_1"/>
+        <Button Content="Adicionar" HorizontalAlignment="Left" Margin="219,411,0,62" Width="146" Height="30" FontSize="14" Background="#FF4EFF00" FontWeight="Bold" Click="Button_Click"/>
+        <Label Content="Adicionar Produto" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="20" Width="318" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+        <Button Content="Selecionar Cor" HorizontalAlignment="Left" Margin="46,363,0,0" Width="128" Click="Button_Click_2" Height="26" VerticalAlignment="Top"/>
+        <Rectangle
+            Width="20"
+            Height="20"
+            Fill="{Binding HexColor}"
+            Stroke="Black"
+            Margin="194,366,195,126"/>
+    </Grid>
+</Window>

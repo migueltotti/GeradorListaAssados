@@ -4,6 +4,7 @@ using GeradorListaAssados.Engine.Models;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using MessageBox = System.Windows.MessageBox;
 
 namespace GeradorListaAssados.Desktop.ViewModels
 {
@@ -21,41 +22,9 @@ namespace GeradorListaAssados.Desktop.ViewModels
         {
             _productService = productService;
 
-            //LoadProducts()
-            //    .GetAwaiter()
-            //    .GetResult();
-
-            Products = new ObservableCollection<Product>
-            {
-                Product.Builder.Create()
-                    .SetName("FRANGO")
-                    .SetPrice(46.90m)
-                    .SetQuantity(21)
-                    .SetIndex(1)
-                    .SetColor("#FFD966")
-                    .Build(),
-                Product.Builder.Create()
-                    .SetName("FRANGO DESOSSADO RECHEADO TOMATE")
-                    .SetPrice(74.90m)
-                    .SetQuantity(1)
-                    .SetIndex(2)
-                    .SetColor("#FFD966")
-                    .Build(),
-                Product.Builder.Create()
-                    .SetName("COPA LOMBO")
-                    .SetPrice(0)
-                    .SetQuantity(2)
-                    .SetIndex(7)
-                    .SetColor("#9BC2E6")
-                    .Build(),
-                Product.Builder.Create()
-                    .SetName("MAMINHA")
-                    .SetPrice(0)
-                    .SetQuantity(3)
-                    .SetIndex(13)
-                    .SetColor("#EF6FC1")
-                    .Build()
-            };
+            LoadProducts()
+                .GetAwaiter()
+                .GetResult();
 
             EditProductCommand = new RelayCommand<Product>(EditProduct);
             DeleteProductCommand = new RelayCommand<Product>(DeleteProduct);
