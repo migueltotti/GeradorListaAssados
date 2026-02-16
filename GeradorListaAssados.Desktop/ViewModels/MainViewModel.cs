@@ -45,7 +45,7 @@ namespace GeradorListaAssados.Desktop.ViewModels
         private void DeleteProduct(Product product)
         {
             if(MessageBox.Show(
-                "Deseja remover esse produto? Operação irreversivel!",
+                "Deseja remover esse produto?\n\nOperação irreversivel!",
                 "Remover Produto",
                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
@@ -62,6 +62,11 @@ namespace GeradorListaAssados.Desktop.ViewModels
                 }
                 else
                 {
+                    MessageBox.Show(
+                        "Produto removido com sucesso.",
+                        "Produto removido.",
+                        MessageBoxButton.OK);
+
                     LoadProducts()
                         .GetAwaiter()
                         .GetResult();
