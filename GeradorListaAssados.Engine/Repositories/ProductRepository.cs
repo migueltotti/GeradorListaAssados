@@ -26,18 +26,21 @@ namespace GeradorListaAssados.Engine.Repositories
         {
             context.Products.Add(product);
             context.SaveChanges();
+            context.ChangeTracker.Clear();
         }
 
         public void Update(Product product)
         {
             context.Products.Update(product);
             context.SaveChanges();
+            context.ChangeTracker.Clear();
         }
 
         public void Delete(Product product)
         {
             context.Products.Remove(product);
             context.SaveChanges();
+            context.ChangeTracker.Clear();
         }
     }
 }

@@ -15,6 +15,12 @@ namespace GeradorListaAssados.Engine.Context
             {
                 entity.HasKey(e => e.Id);
 
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasConversion(
+                        v => v.ToString().ToLower(),
+                        v => Guid.Parse(v))
+                    .UseCollation("NOCASE");
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(200);

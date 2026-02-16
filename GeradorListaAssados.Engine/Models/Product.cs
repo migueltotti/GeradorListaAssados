@@ -40,6 +40,7 @@ public class Product
 
         public static Builder Create() => new();
 
+        public Builder SetId(Guid id) { Id = id; return this; }
         public Builder SetName(string name) { Name = name; return this; }
         public Builder SetPrice(decimal price) { Price = price; return this; }
         public Builder SetQuantity(int quantity) { Quantity = quantity; return this; }
