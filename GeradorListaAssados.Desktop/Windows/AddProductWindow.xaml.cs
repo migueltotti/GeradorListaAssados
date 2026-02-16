@@ -1,9 +1,11 @@
 ﻿using GeradorListaAssados.Desktop.ViewModels;
 using GeradorListaAssados.Engine.Models;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using DataFormats = System.Windows.DataFormats;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace GeradorListaAssados.Desktop.Windows
 {
@@ -14,6 +16,7 @@ namespace GeradorListaAssados.Desktop.Windows
     {
         private readonly AddProductViewModel _viewModel;
         private readonly MainViewModel _mainViewModel;
+        private CultureInfo _ptBr = new CultureInfo("pt-BR");
 
         public AddProductWindow(AddProductViewModel viewModel, MainViewModel mainViewModel)
         {
@@ -29,7 +32,7 @@ namespace GeradorListaAssados.Desktop.Windows
         {
             return Product.Builder.Create()
                 .SetName(tbName.Text.Replace("\r", "").Replace("\n", ""))
-                .SetPrice(decimal.TryParse(tbPrice.Text, out var price) ? price : 0)
+                .SetPrice(decimal.TryParse(tbPrice.Text, NumberStyles.Currency, _ptBr, out var price) ? price : 0)
                 .SetQuantity(int.TryParse(tbQuantity.Text, out var quantity) ? quantity : 0)
                 .SetIndex(int.TryParse(tbIndex.Text, out var index) ? index : 0)
                 .SetColor(_viewModel.HexColor)
@@ -103,6 +106,56 @@ namespace GeradorListaAssados.Desktop.Windows
             {
                 e.CancelCommand();
             }
+        }
+
+        private void Price_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsValidPriceInput(((TextBox)sender).Text, e.Text);
+        }
+
+        private void Price_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(DataFormats.Text))
+            {
+                var text = (string)e.DataObject.GetData(DataFormats.Text)!;
+
+                if (!decimal.TryParse(text, NumberStyles.Number, _ptBr, out _))
+                    e.CancelCommand();
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+
+        private void Price_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+
+            if (decimal.TryParse(textBox.Text, NumberStyles.Currency, _ptBr, out var value))
+            {
+                textBox.Text = value.ToString("N2", _ptBr); // sem R$
+                textBox.SelectAll();
+            }
+        }
+
+        private void Price_LostFocus(object sender, RoutedEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+
+            if (decimal.TryParse(textBox.Text, NumberStyles.Number, _ptBr, out var value))
+            {
+                textBox.Text = value.ToString("C", _ptBr);
+            }
+        }
+
+        private bool IsValidPriceInput(string currentText, string newText)
+        {
+            string fullText = currentText.Insert(
+                ((TextBox)Keyboard.FocusedElement!).SelectionStart,
+                newText);
+
+            return decimal.TryParse(fullText, NumberStyles.Number, _ptBr, out _);
         }
     }
 }
