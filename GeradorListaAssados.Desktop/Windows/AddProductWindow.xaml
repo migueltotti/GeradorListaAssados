@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeradorListaAssados.Desktop.Windows"
         mc:Ignorable="d"
+        Icon="/gerador-lista.ico"
         Title="Adicionar Produto" Height="512" Width="409"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,-6" Height="512" Width="409">

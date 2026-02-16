@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeradorListaAssados.Desktop"
         mc:Ignorable="d"
+        Icon="/gerador-lista.ico"
         Title="MainWindow" Height="450" Width="1200"
         WindowState="Maximized"
         ResizeMode="NoResize">
