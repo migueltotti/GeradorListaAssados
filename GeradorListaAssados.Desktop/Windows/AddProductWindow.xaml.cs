@@ -1,7 +1,9 @@
 ﻿using GeradorListaAssados.Desktop.ViewModels;
 using GeradorListaAssados.Engine.Models;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
+using DataFormats = System.Windows.DataFormats;
 
 namespace GeradorListaAssados.Desktop.Windows
 {
@@ -80,6 +82,26 @@ namespace GeradorListaAssados.Desktop.Windows
                 );
 
                 _viewModel.HexColor = $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+            }
+        }
+
+        private void OnlyNumbers_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !e.Text.All(char.IsDigit);
+        }
+
+        private void OnlyNumbers_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(DataFormats.Text))
+            {
+                var text = (string)e.DataObject.GetData(DataFormats.Text)!;
+
+                if (!text.All(char.IsDigit))
+                    e.CancelCommand();
+            }
+            else
+            {
+                e.CancelCommand();
             }
         }
     }
