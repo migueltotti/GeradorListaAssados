@@ -13,14 +13,12 @@ namespace GeradorListaAssados.Desktop;
 public partial class MainWindow : Window
 {
     private readonly MainViewModel _viewModel;
-    private readonly INavegationService _navegationService;
 
-    public MainWindow(MainViewModel viewModel, INavegationService navegationService)
+    public MainWindow(MainViewModel viewModel)
     {
         InitializeComponent();
 
         _viewModel = viewModel;
-        _navegationService = navegationService;
         DataContext = _viewModel;
 
         SetDateLabel();
@@ -52,7 +50,7 @@ public partial class MainWindow : Window
 
     private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
     {
-        _navegationService.OpenWindow<AddProductWindow>();
+        _viewModel.NavegationService.OpenWindow<AddProductWindow>();
     }
 
     private void btnGenerateFile_Click(object sender, RoutedEventArgs e)

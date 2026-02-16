@@ -87,12 +87,14 @@ namespace GeradorListaAssados.Desktop
         {
             services.AddScoped<MainViewModel>();
             services.AddScoped<AddProductViewModel>();
+            services.AddScoped<UpdateProductViewModel>();
         }
 
         private static void RegisterWindows(IServiceCollection services)
         {
-            services.AddSingleton<MainWindow>();
-            services.AddSingleton<AddProductWindow>();
+            services.AddScoped<MainWindow>();
+            services.AddTransient<AddProductWindow>();
+            services.AddTransient<UpdateProductWindow>();
         }
 
         private static void ApplyDatabaseMigrations(IHost host)
